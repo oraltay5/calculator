@@ -6,6 +6,15 @@ import android.text.InputType
 import android.widget.EditText
 import android.widget.TextView
 
+
+/**
+ * Что надо сделать?
+ * 1. У вас в activity_main отсутсвует строка с цифрами 7,8,9 и символ *.
+ * Вам надо добавить эти вьшки с помощью существующих примеров
+ * 2. Инициализировать добавленные вьюшки, внимательно читай коментарий в коде.
+ * 3. Доработай логику матем. операций
+ */
+
 class MainActivity : AppCompatActivity() {
 
     companion object {
@@ -20,7 +29,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var plusSign: TextView
     private lateinit var minusSign: TextView
-    private lateinit var multipleSign: TextView
     private lateinit var divideSign: TextView
     private lateinit var equalSign: TextView
     private lateinit var dotSign: TextView
@@ -32,9 +40,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var fourDigit: TextView
     private lateinit var fiveDigit: TextView
     private lateinit var sixDigit: TextView
-    private lateinit var sevenDigit: TextView
-    private lateinit var eightDigit: TextView
-    private lateinit var nineDigit: TextView
 
     private lateinit var signTextView: TextView
 
@@ -85,22 +90,26 @@ class MainActivity : AppCompatActivity() {
         firstValueEditText.inputType = InputType.TYPE_NULL
         secondValueEditText.inputType = InputType.TYPE_NULL
 
+        /**
+         *  Инициализация символов
+         *  TODO: Подсказка здесь добавляй инициализацию символа *
+         */
         plusSign = findViewById(R.id.plusSign)
         minusSign = findViewById(R.id.minus)
-        multipleSign = findViewById(R.id.multiply)
         divideSign = findViewById(R.id.divideTextView)
         equalSign = findViewById(R.id.equalSign)
         dotSign = findViewById(R.id.dotSign)
 
+        /**
+         *  Инициализация цифер
+         *  TODO: Подсказка здесь добавляй инициализацию цифер
+         */
         oneDigit = findViewById(R.id.oneTextView)
         twoDigit = findViewById(R.id.twoTextView)
         threeDigit = findViewById(R.id.threeTextView)
         fourDigit = findViewById(R.id.fourTextView)
         fiveDigit = findViewById(R.id.fiveTextView)
         sixDigit = findViewById(R.id.sixTextView)
-        sevenDigit = findViewById(R.id.sevenTextView)
-        eightDigit = findViewById(R.id.eightTextView)
-        nineDigit = findViewById(R.id.nineTextView)
         zeroDigit = findViewById(R.id.zeroTextView)
 
         clearTextView = findViewById(R.id.claerTextView)
@@ -111,7 +120,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     *  setOnClickListener - листенер который обратбатывает нажатие на вью
+     *  setOnClickListener - обработчик который обратбатывает нажатие на вью.
+     *  TODO: тут не хватает обработчик цифер 7,8,9. Реализуй эти обработчики здесь
      */
     private fun setDigitsOnClickListener() {
         oneDigit.setOnClickListener {
@@ -168,33 +178,6 @@ class MainActivity : AppCompatActivity() {
                 secondValueEditText.setText(secondValue)
             }
         }
-        sevenDigit.setOnClickListener {
-            if (firstValueEditText.isFocused) {
-                firstValue += sevenDigit.text.toString()
-                firstValueEditText.setText(firstValue)
-            } else if (secondValueEditText.isFocused) {
-                secondValue += sevenDigit.text.toString()
-                secondValueEditText.setText(secondValue)
-            }
-        }
-        eightDigit.setOnClickListener {
-            if (firstValueEditText.isFocused) {
-                firstValue += eightDigit.text.toString()
-                firstValueEditText.setText(firstValue)
-            } else if (secondValueEditText.isFocused) {
-                secondValue += eightDigit.text.toString()
-                secondValueEditText.setText(secondValue)
-            }
-        }
-        nineDigit.setOnClickListener {
-            if (firstValueEditText.isFocused) {
-                firstValue += nineDigit.text.toString()
-                firstValueEditText.setText(firstValue)
-            } else if (secondValueEditText.isFocused) {
-                secondValue += nineDigit.text.toString()
-                secondValueEditText.setText(secondValue)
-            }
-        }
         zeroDigit.setOnClickListener {
             if (firstValueEditText.isFocused) {
                 firstValue += zeroDigit.text.toString()
@@ -206,6 +189,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     *  TODO: тут не хватает обработчик символа *. Реализуй этот обработчик здесь
+     */
     private fun setSignOnClickListener() {
         plusSign.setOnClickListener {
             selectedOperation = plusSign.text.toString()
@@ -215,12 +201,6 @@ class MainActivity : AppCompatActivity() {
         }
         minusSign.setOnClickListener {
             selectedOperation = minusSign.text.toString()
-            signTextView.text = selectedOperation
-
-            changeFocus()
-        }
-        multipleSign.setOnClickListener {
-            selectedOperation = multipleSign.text.toString()
             signTextView.text = selectedOperation
 
             changeFocus()
@@ -270,26 +250,36 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * У нас есть два переменных
+     * @param firstValue тут храним первое число
+     * @param secondValue тут храним второе число
+     *
+     * Важно! EditText всегда возвращает данные в типе String,
+     * что бы использовать матем. операций мы должны преобразовать String в Double
+     *
+     * В текущяя реализация является не полной, надо доработать логику
+     */
     private fun makePlus() {
-        if (checkValuesAvailable()) {
+        if (checkValuesAvailable()) { // checkAvailability() проверяет на пустоту firstValue и secondValue, попробуй без этой проверки запустить код
             val firstValue = firstValue.toDouble()
-            val secondValue = secondValue.toDouble()
+            val secondValue = secondValue
 
-            val result = firstValue + secondValue
-            resultTextView.text = result.toString()
+            val result = 0.0  // напиши здесь реализацию +
+            resultTextView.text = ""
         }
     }
 
+    /**
+     *  TODO: Используй makePlus как пример, это функция для -
+     */
     private fun makeMinus() {
-        if (checkValuesAvailable()) {
-            val firstValue = firstValue.toDouble()
-            val secondValue = secondValue.toDouble()
 
-            val result = firstValue - secondValue
-            resultTextView.text = result.toString()
-        }
     }
 
+    /**
+     *  TODO: Используй makePlus как пример, это функция для *
+     */
     private fun makeMultiply() {
         if (checkValuesAvailable()) {
             val firstValue = firstValue.toDouble()
@@ -300,6 +290,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     *  TODO: Используй makePlus как пример, это функция для /
+     */
     private fun makeDivide() {
         if (checkValuesAvailable()) {
             val firstValue = firstValue.toDouble()
