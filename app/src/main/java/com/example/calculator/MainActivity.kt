@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var plusSign: TextView
     private lateinit var minusSign: TextView
     private lateinit var divideSign: TextView
+    private lateinit var multiplySign: TextView
     private lateinit var equalSign: TextView
     private lateinit var dotSign: TextView
 
@@ -40,6 +41,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var fourDigit: TextView
     private lateinit var fiveDigit: TextView
     private lateinit var sixDigit: TextView
+    private lateinit var sevenDigit: TextView
+    private lateinit var eightDigit: TextView
+    private lateinit var nineDigit: TextView
 
     private lateinit var signTextView: TextView
 
@@ -97,6 +101,7 @@ class MainActivity : AppCompatActivity() {
         plusSign = findViewById(R.id.plusSign)
         minusSign = findViewById(R.id.minus)
         divideSign = findViewById(R.id.divideTextView)
+        multiplySign = findViewById(R.id.multiplyTextView)
         equalSign = findViewById(R.id.equalSign)
         dotSign = findViewById(R.id.dotSign)
 
@@ -110,6 +115,9 @@ class MainActivity : AppCompatActivity() {
         fourDigit = findViewById(R.id.fourTextView)
         fiveDigit = findViewById(R.id.fiveTextView)
         sixDigit = findViewById(R.id.sixTextView)
+        sevenDigit = findViewById(R.id.sevenTextView)
+        eightDigit = findViewById(R.id.eightTextView)
+        nineDigit = findViewById(R.id.nineTextView)
         zeroDigit = findViewById(R.id.zeroTextView)
 
         clearTextView = findViewById(R.id.claerTextView)
@@ -178,6 +186,33 @@ class MainActivity : AppCompatActivity() {
                 secondValueEditText.setText(secondValue)
             }
         }
+        sevenDigit.setOnClickListener {
+            if (firstValueEditText.isFocused) {
+                firstValue += sevenDigit.text.toString()
+                firstValueEditText.setText(firstValue)
+            } else if (secondValueEditText.isFocused){
+                secondValue += sevenDigit.text.toString()
+                secondValueEditText.setText(secondValue)
+            }
+        }
+        eightDigit.setOnClickListener {
+            if (firstValueEditText.isFocused) {
+                firstValue += eightDigit.text.toString()
+                firstValueEditText.setText(firstValue)
+            } else if (secondValueEditText.isFocused) {
+                secondValue += eightDigit.text.toString()
+                secondValueEditText.setText(secondValue)
+            }
+        }
+        nineDigit.setOnClickListener {
+            if (firstValueEditText.isFocused) {
+                firstValue += nineDigit.text.toString()
+                firstValueEditText.setText(firstValue)
+            } else if (secondValueEditText.isFocused) {
+                secondValue += nineDigit.text.toString()
+                secondValueEditText.setText(secondValue)
+            }
+        }
         zeroDigit.setOnClickListener {
             if (firstValueEditText.isFocused) {
                 firstValue += zeroDigit.text.toString()
@@ -207,6 +242,12 @@ class MainActivity : AppCompatActivity() {
         }
         divideSign.setOnClickListener {
             selectedOperation = divideSign.text.toString()
+            signTextView.text = selectedOperation
+
+            changeFocus()
+        }
+        multiplySign.setOnClickListener {
+            selectedOperation = multiplySign.text.toString()
             signTextView.text = selectedOperation
 
             changeFocus()
@@ -263,10 +304,10 @@ class MainActivity : AppCompatActivity() {
     private fun makePlus() {
         if (checkValuesAvailable()) { // checkAvailability() проверяет на пустоту firstValue и secondValue, попробуй без этой проверки запустить код
             val firstValue = firstValue.toDouble()
-            val secondValue = secondValue
+            val secondValue = secondValue.toDouble()
 
-            val result = 0.0  // напиши здесь реализацию +
-            resultTextView.text = ""
+            val result = firstValue + secondValue  // напиши здесь реализацию +
+            resultTextView.text = result.toString()
         }
     }
 
@@ -274,7 +315,13 @@ class MainActivity : AppCompatActivity() {
      *  TODO: Используй makePlus как пример, это функция для -
      */
     private fun makeMinus() {
+        if (checkValuesAvailable()) {
+            val firstValue = firstValue.toDouble()
+            val secondValue = secondValue.toDouble()
 
+            val result = firstValue - secondValue
+            resultTextView.text = result.toString()
+        }
     }
 
     /**
